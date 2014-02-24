@@ -17,7 +17,9 @@ BGP Ranking with Cyrmu ASN Calculator
 
 Intenet connectivity for Online Calculators.
 
-You need each of the free GeoLite country, city or ASN databases, or a subscription database version. 
+Maxmind dat file location requirement: `/usr/local/lib/share/enricher`
+
+You need to download and install each of the free GeoLite country, city or ASN databases, or a subscription database version. 
 
 The last known download locations for the GeoLite database versions are:
 
