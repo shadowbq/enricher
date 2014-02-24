@@ -1,7 +1,9 @@
 *.gem
 *.rbc
+*.dat
 .bundle
 .config
+build.sh
 coverage
 InstalledFiles
 lib/bundler/man
