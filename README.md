@@ -4,14 +4,40 @@ IPv4 Data Enricher
 
 ### Static Calculators:
 
-Calculate ASN, CC3, Bogon, and Lat Long. 
+Calculate Maxmind ASN, CC3, Bogon inclusion, and geodata such as Lat Long. 
 
 ### Online Calculators:
 
-IPv4 reputation with VOIDIP
-IPv4 reputation with VirusTotal
+BGP Ranking with http://bgpranking.circl.lu/ ASN Calculator
 
-BGP Ranking with Cyrmu ASN Calculator
+Full Bogon Checking with Team Cymru List
+
+
+### Usage
+
+```
+>> require 'enricher'
+=> true
+
+>> a = Enricher::Encoder.encode('10.48.185.173')
+=> {:ip=>170965421, :asn=>"--", :asn_rank=>"0.0", :geoip=>"--", :bogon=>true}
+
+>> a = Enricher::Encoder.encode('108.48.185.173')
+=> {:ip=>1815132589, :asn=>"AS701", :asn_rank=>"0.000011", :geoip=>"USA", :bogon=>false}
+```
+
+### Use of Volatile Hash DB
+
+BGP Scores are stored for 12 hours in a volatile hash cache.
+
+```
+>> Enricher::BGPRanking.cache
+```
+
+### TODO
+
+* IPv4 reputation with VOIDIP
+* IPv4 reputation with VirusTotal (uirusu)
 
 ## Requirements
 
