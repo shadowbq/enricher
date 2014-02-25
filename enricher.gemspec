@@ -19,5 +19,6 @@ Gem::Specification.new do |gem|
   gem.add_dependency "geoip", '~> 1.2'
   gem.add_dependency "netaddr", '~> 1.5'
   gem.add_dependency "rest-client"
+  gem.add_dependency "json"
 
 end

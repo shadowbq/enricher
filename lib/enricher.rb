@@ -5,15 +5,14 @@ require 'logger'
 require 'rubygems'
 require 'tempfile'
 require 'net/http'
+require 'date'
 
 # RubyGems
 
 require 'json'
 require 'geoip'
 require 'netaddr'
-require 'json'
 require 'rest-client'
-require 'date'
 
 
 # Internal 
