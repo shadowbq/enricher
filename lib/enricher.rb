@@ -15,9 +15,10 @@ require 'netaddr'
 module Enricher
   $:.unshift(File.dirname(__FILE__))
   require 'enricher/version'
+  require 'enricher/exceptions'
   require 'enricher/bogon'
   require 'enricher/encoder'
-
+  
   DEBUG=false
   LOGGING=false
 

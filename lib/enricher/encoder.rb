@@ -1,6 +1,16 @@
 module Enricher 
   
   class Encoder
+  
+    def self.encode(ip)
+      @@bogon_type ||= self.bogon_type
+      @@geoASN ||= GeoIP.new("#{Enricher::DATA_PATH}/GeoIPASNum.dat")
+      @@geoCoder ||= GeoIP.new("#{Enricher::DATA_PATH}/GeoIP.dat")
+      @@geoCoderCity ||= GeoIP.new("#{Enricher::DATA_PATH}/GeoLiteCity.dat")
+      @@bogon ||= Bogon.new(@@bogon_type)
+      asn = @@geoASN.asn(ip).number rescue "--"
+      {:ip => IPAddr.new(ip).to_i, :asn => asn, :geoip => @@geoCoder.country(ip).country_code3, :bogon => @@bogon.contains?(ip)}
+    end
     
     def self.aton(a)
       IPAddr.new(a).to_i
@@ -9,21 +19,17 @@ module Enricher
     def self.ntoa(a)
       IPAddr.new(a, Socket::AF_INET).to_s
     end
-  
-    def self.encode(ip)
-      @@geoASN ||= GeoIP.new("#{Enricher::DATA_PATH}/GeoIPASNum.dat")
-      @@geoCoder ||= GeoIP.new("#{Enricher::DATA_PATH}/GeoIP.dat")
-      @@geoCoderCity ||= GeoIP.new("#{Enricher::DATA_PATH}/GeoLiteCity.dat")
-      @@bogon ||= Bogon.new(:bogonipv4)
-      asn = @@geoASN.asn(ip).number rescue "--"
-      {:ip => IPAddr.new(ip).to_i, :asn => asn, :geoip => @@geoCoder.country(ip).country_code3, :bogon => @@bogon.contains?(ip)}
-    end
-    
-    def self.bogon?(ip)
-      @@bogon ||= Bogon.new(:bogonipv4)
+
+    def self.bogon?(ip, bogon=:ipv4)
+      @@bogon_type ||= :ipv4
+      @@bogon ||= Bogon.new(@@bogon_type)
       return @@bogon.contains?(ip)
     end
     
+    def self.bogon_type(bogon_sym=:ipv4)
+      @@bogon_type = bogon_sym
+    end
+
     def self.asn(ip)
       @@geoASN ||= GeoIP.new("#{Enricher::DATA_PATH}/GeoIPASNum.dat")
       return @@geoASN.asn(ip).number rescue "--"
