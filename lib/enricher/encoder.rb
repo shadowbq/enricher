@@ -3,13 +3,17 @@ module Enricher
   class Encoder
   
     def self.encode(ip)
-      @@bogon_type ||= self.bogon_type
+      
       @@geoASN ||= GeoIP.new("#{Enricher::DATA_PATH}/GeoIPASNum.dat")
       @@geoCoder ||= GeoIP.new("#{Enricher::DATA_PATH}/GeoIP.dat")
       @@geoCoderCity ||= GeoIP.new("#{Enricher::DATA_PATH}/GeoLiteCity.dat")
+      
+      @@bogon_type ||= self.bogon_type
       @@bogon ||= Bogon.new(@@bogon_type)
+      
       asn = @@geoASN.asn(ip).number rescue "--"
-      {:ip => IPAddr.new(ip).to_i, :asn => asn, :geoip => @@geoCoder.country(ip).country_code3, :bogon => @@bogon.contains?(ip)}
+      
+      {:ip => IPAddr.new(ip).to_i, :asn => asn, :asn_rank => Enricher::BGPRanking.rank?(asn), :geoip => @@geoCoder.country(ip).country_code3, :bogon => @@bogon.contains?(ip)}
     end
     
     def self.aton(a)
@@ -20,14 +24,18 @@ module Enricher
       IPAddr.new(a, Socket::AF_INET).to_s
     end
 
-    def self.bogon?(ip, bogon=:ipv4)
-      @@bogon_type ||= :ipv4
+    def self.rank?(asn)
+      Enricher::BGPRanking.rank?(asn)
+    end
+
+    def self.bogon?(ip)
+      @@bogon_type ||= self.bogon_type
       @@bogon ||= Bogon.new(@@bogon_type)
       return @@bogon.contains?(ip)
     end
     
     def self.bogon_type(bogon_sym=:ipv4)
-      @@bogon_type = bogon_sym
+      bogon_sym
     end
 
     def self.asn(ip)

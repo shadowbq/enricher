@@ -4,19 +4,27 @@ require 'ipaddr'
 require 'logger'
 require 'rubygems'
 require 'tempfile'
+require 'net/http'
 
 # RubyGems
 
 require 'json'
 require 'geoip'
 require 'netaddr'
+require 'json'
+require 'rest-client'
+require 'date'
+
 
 # Internal 
 module Enricher
   $:.unshift(File.dirname(__FILE__))
+
+  require 'vash'
   require 'enricher/version'
   require 'enricher/exceptions'
   require 'enricher/bogon'
+  require 'enricher/bgpranking'
   require 'enricher/encoder'
   
   DEBUG=false
