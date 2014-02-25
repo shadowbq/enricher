@@ -49,9 +49,9 @@ You need to download and install each of the free GeoLite country, city or ASN d
 
 The last known download locations for the GeoLite database versions are:
 
-<geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz>
-<geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz>
-<geolite.maxmind.com/download/geoip/database/asnum/GeoIPASNum.dat.gz>
+* http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
+* http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz
+* http://geolite.maxmind.com/download/geoip/database/asnum/GeoIPASNum.dat.gz
 
 
 ## Automating the update of Static Content (via crontrab)
