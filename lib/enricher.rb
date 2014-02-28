@@ -13,7 +13,7 @@ require 'json'
 require 'geoip'
 require 'netaddr'
 require 'rest-client'
-
+require 'uirusu'
 
 # Internal 
 module Enricher
