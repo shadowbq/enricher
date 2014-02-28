@@ -2,6 +2,8 @@
 
 IPv4 Data Enricher
 
+[![Gem Version](https://badge.fury.io/rb/enricher.png)](http://badge.fury.io/rb/enricher)
+
 ### Static Calculators:
 
 Calculate Maxmind ASN, CC3, Bogon inclusion, and geodata such as Lat Long. 
