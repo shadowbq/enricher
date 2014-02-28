@@ -28,7 +28,15 @@ module Enricher
   
   DEBUG=false
   LOGGING=false
-
+  COMMON_DATA_PATHS=[
+    '/usr/local/lib/share/enricher', 
+    '/usr/local/share/enricher',
+    '/usr/local/lib/enricher',
+    '/usr/local/etc/enricher',
+    '/etc/enricher',
+    '/var/db/enricher'
+  ]
+  
   #Setup Paths
   LIB_PATH = File.expand_path("../", __FILE__)
   CONFIG_PATH = File.expand_path("../../db", __FILE__)
@@ -39,11 +47,18 @@ module Enricher
       Enricher::LOG_PATH = File.expand_path("../../log", __FILE__)
       logfile = "#{Enricher::LOG_PATH}/enricher.log"
     end   
-  else  
-    Enricher::DATA_PATH = File.path("/usr/local/lib/share/enricher")
-    if Enricher::LOGGING  
-      logfile = Tempfile.new('enricher.log')
-      Enricher::LOG_PATH = File.dirname(logfile.path) 
+  else
+    COMMON_DATA_PATHS.each do |dirname| 
+      if File.exists?(dirname) && File.directory?(dirname)
+        Enricher::DATA_PATH = File.path(dirname)
+        if Enricher::LOGGING  
+          logfile = Tempfile.new('enricher.log')
+          Enricher::LOG_PATH = File.dirname(logfile.path) 
+        end
+        break 
+      else
+        raise EnricherPathMissing, "Enricher data path not found in Common Data Paths. "
+      end
     end   
   end   
 
