@@ -4,7 +4,7 @@ module Enricher
 
     ## Class Methods for the Encoder.. 
     class << self
-      alias_method :encode :to_s
+      alias_method :to_s, :encode
 
       def encode(ip)
         
@@ -32,7 +32,7 @@ module Enricher
         
         asn = @@geoASN.asn(ip).number rescue "--"
         reverse_hostname = self.reverse(ip) rescue ""
-        
+
         {:ip => IPAddr.new(ip).to_i, :asn => asn, :asn_rank => Enricher::BGPRanking.rank?(asn), :geoip => @@geoCoder.country(ip).country_code3, :bogon => @@bogon.contains?(ip), :reverse => reverse_hostname, :cdn => self.cdn?(reverse_hostname)}
       end
 
