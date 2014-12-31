@@ -91,7 +91,8 @@ class Vash < Hash
     self.delete key
   end
   
-private
+  private
+  
   def expired?(key)
     Time.now.to_i > @register[key].to_i
   end
@@ -107,4 +108,5 @@ private
   def sterilize(key)
     key = sterile(key)
   end
+  
 end

@@ -13,7 +13,8 @@ require 'json'
 require 'geoip'
 require 'netaddr'
 require 'rest-client'
-require 'uirusu'
+require 'net/dns'
+#require 'uirusu'
 
 # Internal 
 module Enricher
@@ -24,6 +25,8 @@ module Enricher
   require 'enricher/exceptions'
   require 'enricher/bogon'
   require 'enricher/bgpranking'
+  require 'enricher/cdn'
+  require 'enricher/resolver'
   require 'enricher/encoder'
   
   DEBUG=false
