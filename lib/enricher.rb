@@ -42,7 +42,7 @@ module Enricher
   
   #Setup Paths
   LIB_PATH = File.expand_path("../", __FILE__)
-  CONFIG_PATH = File.expand_path("../../db", __FILE__)
+  #CONFIG_PATH = File.expand_path("../../db", __FILE__)
   
   if Enricher::DEBUG
     Enricher::DATA_PATH = File.expand_path("../../data", __FILE__)
@@ -60,7 +60,7 @@ module Enricher
         end
         break 
       else
-        raise EnricherPathMissing, "Enricher data path not found in Common Data Paths. "
+        raise EnricherPathMissing, "Enricher data path not found in Common Data Paths. (i.e /usr/local/lib/share/enricher) See README.md"
       end
     end   
   end   

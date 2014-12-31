@@ -4,7 +4,7 @@ module Enricher
 
     ## Class Methods for the Encoder.. 
     class << self
-      alias_method :to_s, :encode
+
 
       def encode(ip)
         
